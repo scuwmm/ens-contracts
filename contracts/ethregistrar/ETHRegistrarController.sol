@@ -38,7 +38,9 @@ contract ETHRegistrarController is
 
     uint256 public constant MIN_REGISTRATION_DURATION = 28 days;
     bytes32 private constant ETH_NODE =
-        0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
+        0xf7371317c100d5b60d3ccb1738fb0e94c7aded59790cd01aa2aba4798434e7bf;
+        // 0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
+
     uint64 private constant MAX_EXPIRY = type(uint64).max;
     BaseRegistrarImplementation immutable base;
     IPriceOracle public immutable prices;
@@ -99,7 +101,12 @@ contract ETHRegistrarController is
     }
 
     function valid(string memory name) public pure returns (bool) {
-        return name.strlen() >= 3;
+        if(bytes(name).length == name.strlen()) {
+            return name.strlen() >= 3;
+        } else {
+            return name.strlen() >= 2;
+        }
+        
     }
 
     function available(string memory name) public view override returns (bool) {
